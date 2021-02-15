@@ -9,16 +9,16 @@ function Input(props) {
         e.preventDefault();
 
         let newState = props.value;
-        newState[category] = parseInt(value);
         
         let total = 0;
-        Object.keys(newState).map(item => {
-            if(item != 'total') {
-                total += parseInt(newState[item]);
-            }
+
+        newState.map(i => {
+            if(i.name == category) {
+                i.value += parseInt(value);
+            } 
         });
-        newState.total = total;
-        props.onChange(newState);
+        
+        props.onChange(newState, parseInt(value));
         
     };
 
@@ -30,7 +30,7 @@ function Input(props) {
     
 
     return (
-        <div>
+        <div className="income-form">
             <form onSubmit={onSubmit}>
                 <h1>{`${props.title}: `}</h1>
                 <select id="dropdown" name="dropdown" onChange = {e => {setIncomeCategory(e.target.value)}}>
